@@ -1,7 +1,11 @@
 import streamlit as st
 
 # Correction ici : ajout des guillemets autour de "centered"
-st.set_page_config(page_title="Routage de l'application", layout="centered")
+st.set_page_config(
+    page_title="ML in the Cloud – Présentation du Devoir · Streamlit", 
+    page_icon="🧠", 
+    layout="centered"
+)
 
 url = "https://ccsnmldanslecloud-5veganhynafcywu6dqndub.streamlit.app/"
 
