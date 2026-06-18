@@ -1,28 +1,36 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(layout="centered")
 
 url = "https://ccsnmldanslecloud-5veganhynafcywu6dqndub.streamlit.app/"
 
-# Utilisation combinée d'un script JS qui cible la fenêtre principale (window.top)
+# 1. Message d'attente propre
 st.markdown(
     f"""
-    <script>
-        // Force la page parente globale à changer d'adresse
-        window.top.location.href = "{url}";
-    </script>
+    <div style="text-align: center; margin-top: 15%; font-family: sans-serif;">
+        <h2 style="color: #31333F;">Chargement de l'application...</h2>
+        <p style="color: #76777F;">Veuillez patienter pendant la redirection.</p>
+        <p style="font-size: 0.9em; color: #A3A3A3;">Si rien ne se produit après quelques secondes, 
+        <a href="{url}" target="_top" style="color: #ff4b4b; font-weight: bold; text-decoration: none;">cliquez ici pour forcer l'accès</a>.</p>
+    </div>
     """,
     unsafe_allow_html=True
 )
 
-# Message et secours visuel indispensable pendant la micro-seconde de chargement
-st.markdown(
+# 2. Utilisation d'un composant HTML isolé avec privilèges d'exécution parent
+components.html(
     f"""
-    <div style="text-align: center; margin-top: 20%; font-family: sans-serif;">
-        <h3>Redirection vers l'application cible...</h3>
-        <p>Si l'application ne s'ouvre pas automatiquement, 
-        <a href="{url}" target="_top" style="color: #ff4b4b; font-weight: bold;">cliquez ici</a>.</p>
-    </div>
+    <script type="text/javascript">
+        // On force la redirection au niveau le plus haut possible (l'onglet du navigateur)
+        // en contournant le bac à sable (sandbox) de Streamlit
+        try {{
+            window.top.location.replace("{url}");
+        }} catch (e) {{
+            window.parent.location.href = "{url}";
+        }}
+    </script>
     """,
-    unsafe_allow_html=True
+    height=0,
+    width=0
 )
