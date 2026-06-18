@@ -1,28 +1,47 @@
 import streamlit as st
 
-st.set_page_config(page_title="Redirection", layout="centered")
+st.set_page_config(page_title="Routage de l'application", layout=centered)
 
-# L'URL vers laquelle vous voulez aller
 url = "https://ccsnmldanslecloud-5veganhynafcywu6dqndub.streamlit.app/"
 
+# Styles personnalisés pour intégrer proprement le bouton
 st.markdown(
     """
-    <div style="text-align: center; margin-top: 10%;">
-        <h2>Portail de Redirection</h2>
-        <p>Pour accéder à votre application de Machine Learning, veuillez cliquer sur le bouton ci-dessous :</p>
-    </div>
-    """, 
-    unsafe_allow_html=True
-)
-
-# Utilisation de la méthode officielle moderne (Zéro JavaScript, Zéro Iframe bloquée)
-st.link_button("🚀 Ouvrir l'application cible", url, use_container_width=True)
-
-st.markdown(
-    f"""
-    <div style="text-align: center; margin-top: 5%; color: gray; font-size: 0.85em;">
-        <p>Note : Si après avoir cliqué vous revenez sur cette même page, vérifiez que le dépôt GitHub de l'application cible n'est pas le même que celui-ci.</p>
+    <style>
+    /* Supprime les éléments inutiles de Streamlit pour faire "page blanche" */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    
+    /* Style du conteneur de chargement */
+    .loader-container {
+        text-align: center;
+        margin-top: 15%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border-left-color: #ff4b4b;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px auto;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    </style>
+    
+    <div class="loader-container">
+        <div class="spinner"></div>
+        <h2>Passerelle d'accès au Cloud</h2>
+        <p style="color: #666;">Pour des raisons de sécurité de votre navigateur, veuillez valider le lancement ci-dessous.</p>
     </div>
     """,
     unsafe_allow_html=True
 )
+
+# Un bouton standard mais habillé pour être l'unique action possible
+st.link_button("⚡ Entrer dans l'application", url, use_container_width=True)
