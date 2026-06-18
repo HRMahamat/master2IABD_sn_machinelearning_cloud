@@ -8,97 +8,88 @@ st.set_page_config(
 
 url = "https://ccsnmldanslecloud-5veganhynafcywu6dqndub.streamlit.app/"
 
-st.markdown(
-    f"""
-    <div class="global-overlay">
-        <div class="box">
-            <div class="spinner"></div>
-            <h2>Chargement de l'application...</h2>
-            <p>Préparation de votre espace Machine Learning</p>
-            <a href="{url}" target="_top" class="custom-btn">⚡ Entrer dans l'application</a>
-        </div>
-    </div>
-
+# 1. Utilisation de la nouvelle fonction de 2026 st.html pour forcer le thème sombre global
+st.html(
+    """
     <style>
-        /* Le calque de fond ne bloque PLUS du tout les clics souris */
-        .global-overlay {{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+        /* Force le fond sombre officiel partout */
+        [data-testid="stAppViewContainer"], [data-testid="stHeader"], .stApp {
             background-color: #0E1117 !important;
-            z-index: 999999 !important;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            pointer-events: none; /* Laisse passer les clics à travers le fond */
-        }}
+        }
         
-        /* La boîte et le bouton forcent l'activation des clics */
-        .box {{
+        /* Masque les éléments inutiles de l'interface */
+        [data-testid="stToolbar"], footer, header {
+            display: none !important;
+        }
+
+        /* Centre le contenu verticalement */
+        .stMainBlockContainer {
+            padding-top: 15% !important;
+            max-width: 450px !important;
+            margin: 0 auto !important;
+        }
+
+        /* Style de notre loader */
+        .custom-loader {
             text-align: center;
-            width: 90%;
-            max-width: 400px;
-            padding: 20px;
-            pointer-events: auto !important; /* Force la zone à redevenir cliquable */
-        }}
-        
-        .spinner {{
+            font-family: sans-serif;
+            margin-bottom: 30px;
+        }
+
+        .spinner {
             border: 4px solid rgba(255, 255, 255, 0.1);
             width: 45px;
             height: 45px;
             border-radius: 50%;
             border-left-color: #FF4B4B;
             animation: spin 0.8s linear infinite;
-            margin: 0 auto 24px auto;
-        }}
-        
-        @keyframes spin {{
-            0% {{ transform: rotate(0deg); }}
-            100% {{ transform: rotate(360deg); }}
-        }}
-        
-        h2 {{
-            color: #FAFAFA !important;
-            font-weight: 600;
-            font-size: 1.6rem;
-            margin-bottom: 8px;
-            font-family: sans-serif;
-        }}
-        
-        p {{
-            color: #A3A8B8 !important;
-            font-size: 0.95rem;
-            margin-bottom: 32px;
-            font-family: sans-serif;
-        }}
-        
-        .custom-btn {{
-            display: block;
+            margin: 0 auto 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Relooking du VRAI bouton Streamlit pour qu'il soit gros, rouge et magnifique */
+        button[data-testid="stBaseButton-secondary"] {
+            width: 100% !important;
             background-color: #FF4B4B !important;
             color: #FFFFFF !important;
-            text-decoration: none !important;
-            padding: 14px 24px;
-            font-size: 16px;
-            font-weight: 500;
-            border-radius: 8px;
-            box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 6px 0px;
-            transition: background-color 0.2s, transform 0.1s;
-            font-family: sans-serif;
-            pointer-events: auto !important; /* Priorité absolue au clic souris */
-            cursor: pointer !important;
-        }}
+            border: none !important;
+            padding: 14px 24px !important;
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            border-radius: 8px !important;
+            height: auto !important;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 6px 0px !important;
+        }
         
-        .custom-btn:hover {{
+        button[data-testid="stBaseButton-secondary"]:hover {
             background-color: #E03E3E !important;
-        }}
-        
-        .custom-btn:active {{
-            transform: scale(0.98);
-        }}
+            color: #FFFFFF !important;
+        }
     </style>
+    """
+)
+
+# 2. Affichage textuel du Loader
+st.markdown(
+    """
+    <div class="custom-loader">
+        <div class="spinner"></div>
+        <h2 style="color: #FAFAFA; font-weight: 600; font-family: sans-serif;">Chargement de l'application...</h2>
+        <p style="color: #A3A8B8; font-family: sans-serif;">Préparation de votre espace Machine Learning</p>
+    </div>
     """,
     unsafe_allow_html=True
 )
+
+# 3. Le VRAI bouton Streamlit (qui intercepte le clic à 100%) relié à une action de redirection
+if st.button("⚡ Entrer dans l'application", use_container_width=True):
+    st.html(
+        f"""
+        <script>
+            window.top.location.href = "{url}";
+        </script>
+        """
+    )
