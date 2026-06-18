@@ -8,7 +8,7 @@ st.set_page_config(
 
 url = "https://ccsnmldanslecloud-5veganhynafcywu6dqndub.streamlit.app/"
 
-# Injection d'un bloc HTML fixe qui va recouvrir TOUTE la page Streamlit
+# Injection du bloc HTML/CSS configuré avec le thème sombre officiel de Streamlit
 st.markdown(
     f"""
     <div class="global-overlay">
@@ -21,19 +21,19 @@ st.markdown(
     </div>
 
     <style>
-        /* Force un bloc blanc fixe sur l'intégralité de l'écran par-dessus Streamlit */
+        /* Force un bloc sombre fixe sur l'intégralité de l'écran */
         .global-overlay {{
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #FFFFFF !important;
-            z-index: 999999; /* S'assure de passer au-dessus du thème sombre */
+            background-color: #0E1117 !important; /* Fond sombre officiel Streamlit */
+            z-index: 999999;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }}
         
         .box {{
@@ -43,14 +43,15 @@ st.markdown(
             padding: 20px;
         }}
         
+        /* Spinner adapté pour ressortir sur le fond sombre */
         .spinner {{
-            border: 4px solid rgba(0, 0, 0, 0.05);
+            border: 4px solid rgba(255, 255, 255, 0.1);
             width: 45px;
             height: 45px;
             border-radius: 50%;
-            border-left-color: #FF4B4B;
+            border-left-color: #FF4B4B; /* Rouge Streamlit */
             animation: spin 0.8s linear infinite;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 24px auto;
         }}
         
         @keyframes spin {{
@@ -58,22 +59,24 @@ st.markdown(
             100% {{ transform: rotate(360deg); }}
         }}
         
+        /* Textes en blanc brillant et blanc cassé pour le mode sombre */
         h2 {{
-            color: #31333F !important;
+            color: #FAFAFA !important;
             font-weight: 600;
             font-size: 1.6rem;
             margin-bottom: 8px;
             font-family: sans-serif;
+            letter-spacing: -0.005em;
         }}
         
         p {{
-            color: #76777F !important;
+            color: #A3A8B8 !important; /* Gris clair textuel de Streamlit Cloud */
             font-size: 0.95rem;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
             font-family: sans-serif;
         }}
         
-        /* Bouton HTML pur, indépendant des caprices de Streamlit */
+        /* Bouton rouge vif qui tranche parfaitement sur le sombre */
         .custom-btn {{
             display: block;
             background-color: #FF4B4B !important;
@@ -83,13 +86,17 @@ st.markdown(
             font-size: 16px;
             font-weight: 500;
             border-radius: 8px;
-            box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-            transition: background-color 0.2s;
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px 0px;
+            transition: background-color 0.2s, transform 0.1s;
             font-family: sans-serif;
         }}
         
         .custom-btn:hover {{
             background-color: #E03E3E !important;
+        }}
+        
+        .custom-btn:active {{
+            transform: scale(0.98);
         }}
     </style>
     """,
