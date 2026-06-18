@@ -13,6 +13,10 @@ st.markdown(
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
+    body {
+            background-color: #121212;
+            color: #ffffff;
+        }
     
     /* Style du conteneur de chargement */
     .loader-container {
