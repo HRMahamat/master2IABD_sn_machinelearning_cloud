@@ -1,34 +1,28 @@
 import streamlit as st
-import streamlit.components.v1 as components
 
-st.set_page_config(layout="centered")
+st.set_page_config(page_title="Redirection", layout="centered")
 
+# L'URL vers laquelle vous voulez aller
 url = "https://ccsnmldanslecloud-5veganhynafcywu6dqndub.streamlit.app/"
 
-# Message visuel d'attente
 st.markdown(
-    f"""
-    <div style="text-align: center; margin-top: 15%; font-family: sans-serif;">
-        <h2>Redirection vers l'application cible...</h2>
-        <p>Si la page ne se charge pas automatiquement, 
-        <a href="{url}" target="_top" style="color: #ff4b4b; font-weight: bold;">cliquez ici</a>.</p>
+    """
+    <div style="text-align: center; margin-top: 10%;">
+        <h2>Portail de Redirection</h2>
+        <p>Pour accéder à votre application de Machine Learning, veuillez cliquer sur le bouton ci-dessous :</p>
     </div>
-    """,
+    """, 
     unsafe_allow_html=True
 )
 
-# Injection du script via la méthode de composant stable
-# On utilise window.location au cas où window.top soit bloqué par le bac à sable
-components.html(
+# Utilisation de la méthode officielle moderne (Zéro JavaScript, Zéro Iframe bloquée)
+st.link_button("🚀 Ouvrir l'application cible", url, use_container_width=True)
+
+st.markdown(
     f"""
-    <script>
-        try {{
-            window.top.location.replace("{url}");
-        }} catch (e) {{
-            window.location.replace("{url}");
-        }}
-    </script>
+    <div style="text-align: center; margin-top: 5%; color: gray; font-size: 0.85em;">
+        <p>Note : Si après avoir cliqué vous revenez sur cette même page, vérifiez que le dépôt GitHub de l'application cible n'est pas le même que celui-ci.</p>
+    </div>
     """,
-    height=0,
-    width=0
+    unsafe_allow_html=True
 )
