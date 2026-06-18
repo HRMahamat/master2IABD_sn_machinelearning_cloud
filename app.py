@@ -13,10 +13,6 @@ st.markdown(
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
-    body {
-            background-color: #121212;
-            color: #ffffff;
-        }
     
     /* Style du conteneur de chargement */
     .loader-container {
@@ -42,7 +38,7 @@ st.markdown(
     <div class="loader-container">
         <div class="spinner"></div>
         <h2>Passerelle d'accès au Cloud</h2>
-        <p style="color: #666;">Pour des raisons de sécurité de votre navigateur, veuillez valider le lancement ci-dessous.</p>
+        <p style="color: #666;">Pour des raisons de sécurité de votre navigateur, veuillez valider le lancement ci-dessous!</p>
     </div>
     """,
     unsafe_allow_html=True
