@@ -8,7 +8,6 @@ st.set_page_config(
 
 url = "https://ccsnmldanslecloud-5veganhynafcywu6dqndub.streamlit.app/"
 
-# Injection du bloc HTML/CSS en mode sombre avec fix du clic bouton
 st.markdown(
     f"""
     <div class="global-overlay">
@@ -21,7 +20,7 @@ st.markdown(
     </div>
 
     <style>
-        /* Force un bloc sombre fixe sur l'intégralité de l'écran */
+        /* Le calque de fond ne bloque PLUS du tout les clics souris */
         .global-overlay {{
             position: fixed;
             top: 0;
@@ -29,20 +28,21 @@ st.markdown(
             width: 100vw;
             height: 100vh;
             background-color: #0E1117 !important;
-            z-index: 99999;
+            z-index: 999999 !important;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            pointer-events: none; /* Laisse passer les clics à travers le fond */
         }}
         
+        /* La boîte et le bouton forcent l'activation des clics */
         .box {{
             text-align: center;
             width: 90%;
             max-width: 400px;
             padding: 20px;
-            position: relative;
-            z-index: 100000; /* Passe au-dessus du calque de fond pour intercepter le clic */
+            pointer-events: auto !important; /* Force la zone à redevenir cliquable */
         }}
         
         .spinner {{
@@ -75,7 +75,6 @@ st.markdown(
             font-family: sans-serif;
         }}
         
-        /* Bouton HTML pur cliquable */
         .custom-btn {{
             display: block;
             background-color: #FF4B4B !important;
@@ -88,8 +87,7 @@ st.markdown(
             box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 6px 0px;
             transition: background-color 0.2s, transform 0.1s;
             font-family: sans-serif;
-            position: relative;
-            z-index: 100001; /* Priorité absolue pour le clic souris */
+            pointer-events: auto !important; /* Priorité absolue au clic souris */
             cursor: pointer !important;
         }}
         
