@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_page_config(layout=centered)
+st.set_page_config(layout="centered")
 
 url = "https://ccsnmldanslecloud-5veganhynafcywu6dqndub.streamlit.app/"
 
