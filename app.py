@@ -1,10 +1,11 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(layout="centered")
 
 url = "https://ccsnmldanslecloud-5veganhynafcywu6dqndub.streamlit.app/"
 
-# Message visuel propre
+# Message visuel d'attente
 st.markdown(
     f"""
     <div style="text-align: center; margin-top: 15%; font-family: sans-serif;">
@@ -16,11 +17,16 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Nouvelle méthode officielle 2026 pour injecter le script de redirection
-st.iframe(
-    srcdoc=f"""
+# Injection du script via la méthode de composant stable
+# On utilise window.location au cas où window.top soit bloqué par le bac à sable
+components.html(
+    f"""
     <script>
-        window.top.location.replace("{url}");
+        try {{
+            window.top.location.replace("{url}");
+        }} catch (e) {{
+            window.location.replace("{url}");
+        }}
     </script>
     """,
     height=0,
